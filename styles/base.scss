@@ -1,10 +1,14 @@
+html, body, h1, h2, h3, h4, h5, h6, p, div, span, a, li, ul, ol, button, input, textarea {
+  @apply font-primary;
+}
+
 html {
   @apply text-base;
   overflow-x: hidden;
 }
 
 body {
-  @apply bg-body font-primary font-normal leading-relaxed text-text;
+  @apply bg-body font-normal leading-relaxed text-text;
   overflow-x: hidden;
 }
 
@@ -14,7 +18,7 @@ h3,
 h4,
 h5,
 h6 {
-  @apply font-primary font-bold leading-tight text-dark;
+  @apply font-bold leading-tight text-dark;
 }
 
 h1,

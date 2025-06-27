@@ -121,21 +121,18 @@ const BlogPage = async () => {
           )}
 
           {/* Newsletter Section */}
-          <div className="mt-20 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-3xl p-8 md:p-12 text-white">
-            <div className="max-w-2xl mx-auto text-center">
-              <h3 className="text-3xl md:text-4xl font-bold mb-4">
-                Đăng ký nhận tin tức mới nhất
-              </h3>
-              <p className="text-blue-100 mb-8 text-lg">
-                Nhận những bài viết mới nhất và cập nhật từ chúng tôi qua email
-              </p>
+          <div className="mt-20 bg-gradient-to-br from-[#e0e7ff] via-[#a5b4fc] to-[#6366f1] rounded-3xl p-8 md:p-12 text-gray-900 relative overflow-hidden">
+            <div className="absolute inset-0 bg-white/60 pointer-events-none rounded-3xl" />
+            <div className="relative max-w-2xl mx-auto text-center z-10">
+              <h3 className="text-3xl md:text-4xl font-bold mb-4">Đăng ký nhận tin tức mới nhất</h3>
+              <p className="text-gray-700 mb-8 text-lg">Nhận những bài viết mới nhất và cập nhật từ chúng tôi qua email</p>
               <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
                 <input
                   type="email"
                   placeholder="Nhập email của bạn"
-                  className="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                  className="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-300"
                 />
-                <button className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors duration-300">
+                <button className="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition-colors duration-300">
                   Đăng ký
                 </button>
               </div>

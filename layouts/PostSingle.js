@@ -79,23 +79,23 @@ const PostSingle = ({ frontmatter, content }) => {
               {/* Main Content */}
               <article className="lg:col-span-3">
                 {/* Featured Image */}
-                {image && (
+              {image && (
                   <div className="mb-8">
-                    <Image
-                      src={image}
-                      alt={title}
+                <Image
+                  src={image}
+                  alt={title}
                       width={800}
                       height={500}
                       className="w-full h-auto rounded-2xl shadow-lg"
-                      priority={true}
-                    />
+                  priority={true}
+                />
                   </div>
-                )}
+              )}
 
                 {/* Article Content */}
                 <div className="prose prose-lg max-w-none">
-                  <MDXContent content={content} />
-                </div>
+                <MDXContent content={content} />
+              </div>
 
                 {/* Share Section */}
                 <div className="mt-12 pt-8 border-t border-gray-200">
@@ -117,7 +117,7 @@ const PostSingle = ({ frontmatter, content }) => {
                     </div>
                   </div>
                 </div>
-              </article>
+            </article>
 
               {/* Sidebar */}
               <aside className="lg:col-span-1">
@@ -166,19 +166,20 @@ const PostSingle = ({ frontmatter, content }) => {
                   </div>
 
                   {/* Newsletter */}
-                  <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl p-6 text-white">
-                    <h3 className="text-lg font-semibold mb-3">Đăng ký nhận tin</h3>
-                    <p className="text-blue-100 text-sm mb-4">
-                      Nhận những bài viết mới nhất qua email
-                    </p>
-                    <input
-                      type="email"
-                      placeholder="Email của bạn"
-                      className="w-full px-3 py-2 rounded-lg text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
-                    />
-                    <button className="w-full mt-3 px-4 py-2 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors text-sm">
-                      Đăng ký
-                    </button>
+                  <div className="bg-gradient-to-br from-[#e0e7ff] via-[#a5b4fc] to-[#6366f1] rounded-2xl p-6 text-gray-900 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-white/60 pointer-events-none rounded-2xl" />
+                    <div className="relative z-10">
+                      <h3 className="text-lg font-semibold mb-3 text-gray-900">Đăng ký nhận tin</h3>
+                      <p className="text-gray-700 text-sm mb-4">Nhận những bài viết mới nhất qua email</p>
+                      <input
+                        type="email"
+                        placeholder="Email của bạn"
+                        className="w-full px-3 py-2 rounded-lg text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                      />
+                      <button className="w-full mt-3 px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition-colors text-sm">
+                        Đăng ký
+                      </button>
+                    </div>
                   </div>
                 </div>
               </aside>

@@ -76,13 +76,45 @@ const Header = () => {
                       <li key={g.name} className="services-group">
                         <h3 className="services-group-title">{g.name}</h3>
                         <ul className="services-list">
-                          {g.services.map((sv) => (
-                            <li key={sv} className="service-item">
-                              <Link href={g.slug} className="service-link">
-                                {sv}
-                              </Link>
-                            </li>
-                          ))}
+                          {g.services.map((sv) => {
+                            const mapping = [
+                              { name: "SEO TỔNG THỂ", slug: "/services/seo-tong-the" },
+                              { name: "FACEBOOK ADS", slug: "/services/quang-cao-facebook" },
+                              { name: "GOOGLE ADS", slug: "/services/quang-cao-google" },
+                              { name: "THIẾT KẾ LOGO & BỘ NHẬN DIỆN", slug: "/services/thiet-ke-logo-bo-nhan-dien" },
+                              { name: "THIẾT KẾ ẤN PHẨM QUẢNG CÁO", slug: "/services/thiet-ke-an-pham-quang-cao" },
+                              { name: "SẢN XUẤT VIDEO/ẢNH", slug: "/services/san-xuat-video-anh" },
+                              { name: "TƯ VẤN CHIẾN LƯỢC MARKETING", slug: "/services/tu-van-chien-luoc-marketing" },
+                              { name: "ĐÀO TẠO DIGITAL MARKETING", slug: "/services/dao-tao-digital-marketing" },
+                              { name: "XÂY KÊNH TIKTOK", slug: "/services/xay-kenh-tiktok" },
+                              { name: "CONTENT MARKETING", slug: "/services/content-marketing" },
+                              { name: "VIDEO MARKETING", slug: "/services/video-marketing" },
+                              { name: "MARKETING INFLUENCER", slug: "/services/marketing-influencer" },
+                              { name: "EMAIL/ SMS MARKETING", slug: "/services/email-sms-marketing" },
+                              { name: "BÁN HÀNG SHOPEE", slug: "/services/ban-hang-shopee" },
+                              { name: "BÁN HÀNG TIKTOK", slug: "/services/ban-hang-tiktok" },
+                              { name: "DỊCH VỤ LIVESTREAM", slug: "/services/dich-vu-livestream" },
+                              { name: "QUAY CHỤP SẢN PHẨM SÀN", slug: "/services/quay-chup-san-pham-san" },
+                              { name: "APP INSTALL", slug: "/services/app-install" },
+                              { name: "ZALO OA", slug: "/services/zalo-oa" },
+                            ];
+                            const serviceDetail = mapping.find(item => item.name.toUpperCase() === sv.toUpperCase());
+                            if (serviceDetail) {
+                              return (
+                                <li key={sv} className="service-item">
+                                  <Link href={serviceDetail.slug} className="service-link">
+                                    {sv}
+                                  </Link>
+                                </li>
+                              );
+                            } else {
+                              return (
+                                <li key={sv} className="service-item">
+                                  <span className="service-link cursor-default opacity-60">{sv}</span>
+                                </li>
+                              );
+                            }
+                          })}
                         </ul>
                       </li>
                     ))}
@@ -180,15 +212,45 @@ const Header = () => {
                       <React.Fragment key={g.name}>
                         <li className="font-semibold">{g.name}</li>
                         {g.services.map((sv) => (
-                          <li key={sv} className="pl-2">
-                            <Link
-                              href={g.slug}
-                              onClick={() => setNavOpen(false)}
-                              className="block"
-                            >
-                              {sv}
-                            </Link>
-                          </li>
+                          (() => {
+                            const mapping = [
+                              { name: "SEO TỔNG THỂ", slug: "/services/seo-tong-the" },
+                              { name: "FACEBOOK ADS", slug: "/services/quang-cao-facebook" },
+                              { name: "GOOGLE ADS", slug: "/services/quang-cao-google" },
+                              { name: "THIẾT KẾ LOGO & BỘ NHẬN DIỆN", slug: "/services/thiet-ke-logo-bo-nhan-dien" },
+                              { name: "THIẾT KẾ ẤN PHẨM QUẢNG CÁO", slug: "/services/thiet-ke-an-pham-quang-cao" },
+                              { name: "SẢN XUẤT VIDEO/ẢNH", slug: "/services/san-xuat-video-anh" },
+                              { name: "TƯ VẤN CHIẾN LƯỢC MARKETING", slug: "/services/tu-van-chien-luoc-marketing" },
+                              { name: "ĐÀO TẠO DIGITAL MARKETING", slug: "/services/dao-tao-digital-marketing" },
+                              { name: "XÂY KÊNH TIKTOK", slug: "/services/xay-kenh-tiktok" },
+                              { name: "CONTENT MARKETING", slug: "/services/content-marketing" },
+                              { name: "VIDEO MARKETING", slug: "/services/video-marketing" },
+                              { name: "MARKETING INFLUENCER", slug: "/services/marketing-influencer" },
+                              { name: "EMAIL/ SMS MARKETING", slug: "/services/email-sms-marketing" },
+                              { name: "BÁN HÀNG SHOPEE", slug: "/services/ban-hang-shopee" },
+                              { name: "BÁN HÀNG TIKTOK", slug: "/services/ban-hang-tiktok" },
+                              { name: "DỊCH VỤ LIVESTREAM", slug: "/services/dich-vu-livestream" },
+                              { name: "QUAY CHỤP SẢN PHẨM SÀN", slug: "/services/quay-chup-san-pham-san" },
+                              { name: "APP INSTALL", slug: "/services/app-install" },
+                              { name: "ZALO OA", slug: "/services/zalo-oa" },
+                            ];
+                            const serviceDetail = mapping.find(item => item.name.toUpperCase() === sv.toUpperCase());
+                            if (serviceDetail) {
+                              return (
+                                <li key={sv} className="service-item pl-2">
+                                  <Link href={serviceDetail.slug} className="service-link">
+                                    {sv}
+                                  </Link>
+                                </li>
+                              );
+                            } else {
+                              return (
+                                <li key={sv} className="service-item pl-2">
+                                  <span className="service-link cursor-default opacity-60">{sv}</span>
+                                </li>
+                              );
+                            }
+                          })()
                         ))}
                       </React.Fragment>
                     ))}
