@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import SeoMeta from "@layouts/SeoMeta";
 
 const GROUP_IMAGES = {
   "Digital Marketing": "/images/service-slide-1.png",
@@ -168,8 +169,9 @@ const SERVICES = [
   },
 ];
 
-export default function ServicesPage() {
-  return (
+const ServicesPage = () => (
+  <>
+    <SeoMeta title="Dịch vụ" image="/images/logo.png" />
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-10 px-2 md:px-0">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-10 text-blue-800 drop-shadow-sm tracking-tight">
@@ -230,5 +232,7 @@ export default function ServicesPage() {
         </div>
       </div>
     </div>
-  );
-} 
+  </>
+);
+
+export default ServicesPage; 

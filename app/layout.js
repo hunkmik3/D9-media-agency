@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
         />
 
         {/* favicon */}
-        <link rel="shortcut icon" href={config.site.favicon} />
+        <link rel="shortcut icon" href="/images/logo.png" />
         {/* theme meta */}
         <meta name="theme-name" content="andromeda-light-nextjs" />
 

@@ -74,13 +74,13 @@ const SeoMeta = ({
       {/* og-image */}
       <meta
         property="og:image"
-        content={`${base_url}${image ? image : meta_image}`}
+        content={`https://www.d9agency.com${image ? image : meta_image}`}
       />
 
       {/* twitter-image */}
       <meta
         name="twitter:image"
-        content={`${base_url}${image ? image : meta_image}`}
+        content={`https://www.d9agency.com${image ? image : meta_image}`}
       />
       <meta name="twitter:card" content="summary_large_image" />
     </>
