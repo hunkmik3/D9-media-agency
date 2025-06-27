@@ -73,8 +73,8 @@ const PostSingle = ({ frontmatter, content }) => {
 
       {/* Article Content */}
       <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+        <div className="w-full flex justify-center px-2 md:px-4">
+          <div className="w-full max-w-4xl">
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
               {/* Main Content */}
               <article className="lg:col-span-3">
