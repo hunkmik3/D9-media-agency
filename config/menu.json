@@ -1,0 +1,87 @@
+{
+  "main": [
+    {
+      "name": "Về Chúng Tôi",
+      "url": "/"
+    },
+    {
+      "name": "Dịch Vụ",
+      "url": "/services",
+      "hasDropdown": true
+    },
+    {
+      "name": "Portfolio",
+      "url": "/portfolio"
+    },
+    {
+      "name": "Blog",
+      "url": "/blogs"
+    },
+    {
+      "name": "Báo Giá",
+      "url": "/pricing"
+    },
+    {
+      "name": "Liên Hệ",
+      "url": "/contact"
+    }
+  ],
+  "footer": [
+    {
+      "name": "Company",
+      "menu": [
+        {
+          "text": "About Us",
+          "url": "/about"
+        },
+        {
+          "text": "Our Team",
+          "url": "/team"
+        },
+        {
+          "text": "Careers",
+          "url": "/careers"
+        }
+      ]
+    },
+    {
+      "name": "Services",
+      "menu": [
+        {
+          "text": "Web Development",
+          "url": "/services/web-development"
+        },
+        {
+          "text": "Digital Marketing",
+          "url": "/services/digital-marketing"
+        },
+        {
+          "text": "Mobile Apps",
+          "url": "/services/mobile-apps"
+        },
+        {
+          "text": "UI/UX Design",
+          "url": "/services/design"
+        }
+      ]
+    },
+    {
+      "name": "Support",
+      "menu": [
+        {
+          "text": "FAQ",
+          "url": "/faq"
+        },
+        {
+          "text": "Privacy Policy",
+          "url": "/privacy"
+        },
+        {
+          "text": "Terms & Conditions",
+          "url": "/terms"
+        }
+      ]
+    }
+  ]
+}
+

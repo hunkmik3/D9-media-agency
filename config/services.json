@@ -1,0 +1,35 @@
+[
+  {
+    "name": "PERFORMANCE BRANDING",
+    "slug": "/services/performance-branding",
+    "services": [
+      "XÂY KÊNH TIKTOK",
+      "CONTENT MARKETING",
+      "VIDEO MARKETING",
+      "MARKETING INFLUENCER",
+      "EMAIL/ SMS MARKETING"
+    ]
+  },
+  {
+    "name": "E-COMMERCE",
+    "slug": "/services/e-commerce",
+    "services": [
+      "BÁN HÀNG SHOPEE",
+      "BÁN HÀNG TIKTOK",
+      "XÂY KÊNH TIKTOK",
+      "DỊCH VỤ LIVESTREAM",
+      "QUAY CHỤP SẢN PHẨM SÀN"
+    ]
+  },
+  {
+    "name": "PERFORMANCE MARKETING",
+    "slug": "/services/performance-marketing",
+    "services": [
+      "SEO TỔNG THỂ",
+      "APP INSTALL",
+      "GOOGLE ADS",
+      "FACEBOOK ADS",
+      "ZALO OA"
+    ]
+  }
+] 

@@ -1,0 +1,40 @@
+.btn {
+  @apply inline-flex items-center justify-center text-center border border-transparent transition duration-300 ease-in-out;
+}
+
+.btn-sm {
+  @apply px-3 py-2 text-sm;
+}
+
+.btn-lg {
+  @apply px-8 py-4 text-lg;
+}
+
+.btn-primary {
+  @apply bg-primary hover:bg-secondary text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1;
+}
+
+.btn-outline-primary {
+  @apply border-2 border-primary text-primary hover:bg-primary hover:text-white font-medium py-3 px-6 rounded-lg transition-all duration-300;
+}
+
+.btn-secondary {
+  @apply bg-secondary hover:bg-primary text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl;
+}
+
+.btn-white {
+  @apply bg-white text-primary hover:bg-gray-50 font-medium py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl;
+}
+
+.btn-gradient {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  @apply text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1;
+  }
+
+.btn-gradient:hover {
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+}
+
+.btn-ghost {
+  @apply text-primary hover:bg-theme-light font-medium py-3 px-6 rounded-lg transition-all duration-300;
+}
