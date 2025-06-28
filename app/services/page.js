@@ -169,6 +169,28 @@ const SERVICES = [
   },
 ];
 
+const SERVICE_ICONS = {
+  "seo-tong-the": "/images/code.svg",
+  "quang-cao-facebook": "/images/speedometer.svg",
+  "quang-cao-google": "/images/speedometer.svg",
+  "xay-kenh-tiktok": "/images/cloud.svg",
+  "content-marketing": "/images/oop.svg",
+  "video-marketing": "/images/cloud.svg",
+  "marketing-influencer": "/images/user-clock.svg",
+  "email-sms-marketing": "/images/checkmark-circle.svg",
+  "ban-hang-shopee": "/images/checkmark-circle.svg",
+  "ban-hang-tiktok": "/images/cloud.svg",
+  "dich-vu-livestream": "/images/user-clock.svg",
+  "quay-chup-san-pham-san": "/images/love.svg",
+  "app-install": "/images/speedometer.svg",
+  "zalo-oa": "/images/user-clock.svg",
+  "thiet-ke-logo-bo-nhan-dien": "/images/love.svg",
+  "thiet-ke-an-pham-quang-cao": "/images/banner-art.svg",
+  "san-xuat-video-anh": "/images/cloud.svg",
+  "tu-van-chien-luoc-marketing": "/images/oop.svg",
+  "dao-tao-digital-marketing": "/images/checkmark-circle.svg",
+};
+
 const ServicesPage = () => (
   <>
     <SeoMeta title="Dịch vụ" image="/images/logo.png" />
@@ -199,10 +221,6 @@ const ServicesPage = () => (
                       {group.desc}
                     </p>
                   </div>
-                  {/* Ảnh minh họa nhóm dịch vụ (để trống src) */}
-                  <div className="hidden md:block w-32 h-32 rounded-2xl bg-blue-100 flex items-center justify-center overflow-hidden">
-                    {/* <Image src="" alt={group.name} width={128} height={128} /> */}
-                  </div>
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {group.children.map((service) => (
@@ -212,7 +230,13 @@ const ServicesPage = () => (
                       className="bg-white rounded-2xl p-7 shadow-lg flex flex-col items-center text-center transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:border-blue-500 border-2 border-transparent cursor-pointer group min-h-[280px]"
                     >
                       <div className="w-20 h-20 mb-3 relative flex items-center justify-center bg-blue-50 rounded-xl border border-blue-100 group-hover:border-blue-500 transition overflow-hidden">
-                        {/* <Image src={service.image} alt={service.name} width={80} height={80} /> */}
+                        <Image
+                          src={SERVICE_ICONS[service.slug] || "/images/logo.png"}
+                          alt={service.name}
+                          width={56}
+                          height={56}
+                          className="object-contain"
+                        />
                       </div>
                       <h3 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-blue-700 transition">
                         {service.name}

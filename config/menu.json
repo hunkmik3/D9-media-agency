@@ -30,56 +30,35 @@
     {
       "name": "Company",
       "menu": [
-        {
-          "text": "About Us",
-          "url": "/about"
-        },
-        {
-          "text": "Our Team",
-          "url": "/team"
-        },
-        {
-          "text": "Careers",
-          "url": "/careers"
-        }
+        { "text": "Về Chúng Tôi", "url": "/" },
+        { "text": "Portfolio", "url": "/portfolio" },
+        { "text": "Blog", "url": "/blogs" }
       ]
     },
     {
-      "name": "Services",
+      "name": "Dịch Vụ",
       "menu": [
-        {
-          "text": "Web Development",
-          "url": "/services/web-development"
-        },
-        {
-          "text": "Digital Marketing",
-          "url": "/services/digital-marketing"
-        },
-        {
-          "text": "Mobile Apps",
-          "url": "/services/mobile-apps"
-        },
-        {
-          "text": "UI/UX Design",
-          "url": "/services/design"
-        }
+        { "text": "Performance Branding", "url": "/services/performance-branding" },
+        { "text": "E-Commerce", "url": "/services/e-commerce" },
+        { "text": "Performance Marketing", "url": "/services/performance-marketing" }
       ]
     },
     {
-      "name": "Support",
+      "name": "Hỗ Trợ",
       "menu": [
-        {
-          "text": "FAQ",
-          "url": "/faq"
-        },
-        {
-          "text": "Privacy Policy",
-          "url": "/privacy"
-        },
-        {
-          "text": "Terms & Conditions",
-          "url": "/terms"
-        }
+        { "text": "FAQ", "url": "/faq" },
+        { "text": "Liên Hệ", "url": "/contact" },
+        { "text": "Chính Sách Bảo Mật", "url": "/privacy" },
+        { "text": "Điều Khoản", "url": "/terms" }
+      ]
+    },
+    {
+      "name": "Kết Nối",
+      "menu": [
+        { "text": "Facebook", "url": "https://facebook.com/" },
+        { "text": "Twitter", "url": "https://twitter.com/" },
+        { "text": "LinkedIn", "url": "https://linkedin.com/" },
+        { "text": "Skype", "url": "https://skype.com/" }
       ]
     }
   ]

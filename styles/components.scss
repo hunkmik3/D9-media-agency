@@ -232,5 +232,17 @@
 }
 
 :root, * {
-  font-family: theme('fontFamily.primary');
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+.btn-primary, .btn-secondary, .btn-outline {
+  @apply font-bold text-white;
+}
+
+.card, .card-hover, .section-bg, .alert, .badge, .footer-link, .nav-link, .social-icon, .form-input, .form-textarea {
+  @apply text-dark;
+}
+
+a, .nav-link, .footer-link {
+  @apply text-primary hover:text-secondary;
 }

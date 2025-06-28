@@ -1,5 +1,7 @@
+'use client';
 import Link from "next/link";
 import Image from "next/image";
+import { useState, useRef, useEffect } from "react";
 
 function Consulting({ data }) {
   const { frontmatter } = data;
@@ -84,14 +86,36 @@ function Consulting({ data }) {
     }
   ];
 
-  const projects = [
-    { name: "FACOLOS", category: "DỰ ÁN THƯƠNG MẠI ĐIỆN TỬ", image: "" },
-    { name: "GLUCANKID", category: "DỰ ÁN TƯ VẤN", image: "" },
-    { name: "SAO THÁI DƯƠNG", category: "DỰ ÁN QUẢNG CÁO", image: "" },
-    { name: "LEXUS THĂNG LONG", category: "DỰ ÁN SEO", image: "" },
-    { name: "GPA CAMPS", category: "DỰ ÁN SEO", image: "" },
-    { name: "DIỆN CHẨN", category: "DỰ ÁN QUẢNG CÁO", image: "" }
+  const HOMEPAGE_PROJECTS = [
+    { name: "TÂM MINH FOODS", slug: "tam-minh-foods", image: "/images/projects/tam-minh-foods.jpg", type: "SÀN THƯƠNG MẠI ĐIỆN TỬ" },
+    { name: "SAO THÁI DƯƠNG", slug: "sao-thai-duong", image: "/images/projects/sao-thai-duong.jpg", type: "SÀN THƯƠNG MẠI ĐIỆN TỬ" },
+    { name: "NINE WEST", slug: "nine-west", image: "/images/projects/nine-west.jpg", type: "SEO" },
+    { name: "LEXUS THĂNG LONG", slug: "lexus-thang-long", image: "/images/projects/lexus-thang-long.jpg", type: "SEO" },
+    { name: "JEWIS", slug: "jewis", image: "/images/projects/jewis.jpg", type: "SÀN THƯƠNG MẠI ĐIỆN TỬ" },
+    { name: "SAO THÁI DƯƠNG (QC)", slug: "sao-thai-duong-qc", image: "/images/projects/sao-thai-duong-qc.jpg", type: "QUẢNG CÁO" },
+    { name: "JEWIS (QC)", slug: "jewis-qc", image: "/images/projects/jewis-qc.jpg", type: "QUẢNG CÁO" },
+    { name: "LIPO HEALTHY FOOD (TV)", slug: "lipo-healthy-food-tv", image: "/images/projects/lipo-healthy-food-tv.jpg", type: "TƯ VẤN" },
   ];
+
+  const [showPopup, setShowPopup] = useState(false);
+  const popupRef = useRef(null);
+
+  // Đóng popup khi click ra ngoài
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setShowPopup(false);
+      }
+    }
+    if (showPopup) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showPopup]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -117,7 +141,10 @@ function Consulting({ data }) {
             ))}
           </div>
 
-          <button className="bg-indigo-600 text-white px-8 py-4 rounded-lg font-bold text-lg shadow-lg hover:bg-indigo-700 transition-colors">
+          <button
+            className="bg-indigo-600 text-white px-8 py-4 rounded-lg font-bold text-lg shadow-lg hover:bg-indigo-700 transition-colors"
+            onClick={() => setShowPopup(true)}
+          >
             Nhận tư vấn
           </button>
         </div>
@@ -224,13 +251,14 @@ function Consulting({ data }) {
             DỰ ÁN NỔI BẬT
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, idx) => (
-              <div key={idx} className="bg-gray-50 rounded-xl p-6 flex flex-col items-center shadow-md hover:shadow-xl transition">
+            {HOMEPAGE_PROJECTS.map((project, idx) => (
+              <div key={idx} className="bg-gray-50 rounded-xl p-6 flex flex-col items-center shadow-md hover:shadow-xl transition group border border-blue-100">
                 <div className="w-28 h-28 bg-gray-200 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
-                  <img src={project.image || ""} alt={project.name} className="object-cover w-full h-full" />
+                  <img src={project.image} alt={project.name} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500" />
                 </div>
-                <h3 className="text-lg font-bold text-blue-700 mb-1 text-center">{project.name}</h3>
-                <p className="text-gray-600 text-center text-sm">{project.category}</p>
+                <h3 className="text-lg font-bold text-blue-700 mb-1 text-center group-hover:text-indigo-700 transition">{project.name}</h3>
+                <p className="text-gray-600 text-center text-sm mb-2">{project.type}</p>
+                <a href={`/projects/${project.slug}`} className="inline-block mt-auto px-5 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full font-semibold text-sm shadow hover:from-blue-700 hover:to-indigo-700 transition-all">Xem chi tiết</a>
               </div>
             ))}
           </div>
@@ -284,6 +312,41 @@ function Consulting({ data }) {
           </div>
         </div>
       </section>
+
+      {/* Popup Form */}
+      {showPopup && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div ref={popupRef} className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md relative animate-fade-in">
+            <button
+              className="absolute top-3 right-3 text-gray-400 hover:text-red-500 text-2xl font-bold"
+              onClick={() => setShowPopup(false)}
+              aria-label="Đóng"
+            >
+              ×
+            </button>
+            <h3 className="text-2xl font-bold text-center mb-6 text-indigo-700">Đăng ký nhận tư vấn</h3>
+            <form className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium mb-1">Họ tên*</label>
+                <input type="text" required className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400" placeholder="Nhập họ tên" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Số điện thoại*</label>
+                <input type="tel" required className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400" placeholder="Nhập số điện thoại" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Email</label>
+                <input type="email" className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400" placeholder="Nhập email (nếu có)" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Nội dung cần tư vấn</label>
+                <textarea className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400" placeholder="Mô tả nhu cầu của bạn" rows={3}></textarea>
+              </div>
+              <button type="submit" className="w-full bg-indigo-600 text-white py-3 rounded-lg font-bold text-lg shadow hover:bg-indigo-700 transition">Gửi thông tin</button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

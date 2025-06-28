@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
+import Link from "next/link";
 
 const SERVICE_DETAIL = {
   "seo-tong-the": {
@@ -500,9 +501,84 @@ const SERVICE_DETAIL = {
   }
 };
 
+const COLOR_MAP = {
+  "seo-tong-the": { from: "from-blue-600", to: "to-indigo-600" },
+  "quang-cao-facebook": { from: "from-blue-600", to: "to-indigo-600" },
+  "quang-cao-google": { from: "from-blue-600", to: "to-indigo-600" },
+  "thiet-ke-logo-bo-nhan-dien": { from: "from-purple-600", to: "to-pink-600" },
+  "thiet-ke-an-pham-quang-cao": { from: "from-purple-600", to: "to-pink-600" },
+  "san-xuat-video-anh": { from: "from-red-600", to: "to-orange-600" },
+  "tu-van-chien-luoc-marketing": { from: "from-green-600", to: "to-teal-600" },
+  "dao-tao-digital-marketing": { from: "from-green-600", to: "to-teal-600" },
+  // fallback
+  "default": { from: "from-blue-600", to: "to-indigo-600" },
+};
+
+// Dự án nổi bật (rút gọn, mapping theo type)
+const ALL_PROJECTS = [
+  { name: "TÂM MINH FOODS", slug: "tam-minh-foods", image: "/images/projects/tam-minh-foods.jpg", type: "SÀN THƯƠNG MẠI ĐIỆN TỬ" },
+  { name: "SAO THÁI DƯƠNG", slug: "sao-thai-duong", image: "/images/projects/sao-thai-duong.jpg", type: "SÀN THƯƠNG MẠI ĐIỆN TỬ" },
+  { name: "NINE WEST", slug: "nine-west", image: "/images/projects/nine-west.jpg", type: "SEO" },
+  { name: "LEXUS THĂNG LONG", slug: "lexus-thang-long", image: "/images/projects/lexus-thang-long.jpg", type: "SEO" },
+  { name: "JEWIS", slug: "jewis", image: "/images/projects/jewis.jpg", type: "SÀN THƯƠNG MẠI ĐIỆN TỬ" },
+  { name: "SAO THÁI DƯƠNG (QC)", slug: "sao-thai-duong-qc", image: "/images/projects/sao-thai-duong-qc.jpg", type: "QUẢNG CÁO" },
+  { name: "JEWIS (QC)", slug: "jewis-qc", image: "/images/projects/jewis-qc.jpg", type: "QUẢNG CÁO" },
+  { name: "LIPO HEALTHY FOOD (TV)", slug: "lipo-healthy-food-tv", image: "/images/projects/lipo-healthy-food-tv.jpg", type: "TƯ VẤN" },
+  // ... thêm các dự án khác nếu muốn ...
+];
+
+// Mapping dịch vụ -> type dự án liên quan
+const SERVICE_TYPE_MAP = {
+  "seo-tong-the": "SEO",
+  "quang-cao-facebook": "QUẢNG CÁO",
+  "quang-cao-google": "QUẢNG CÁO",
+  "thiet-ke-logo-bo-nhan-dien": "TƯ VẤN",
+  "thiet-ke-an-pham-quang-cao": "QUẢNG CÁO",
+  "san-xuat-video-anh": "QUẢNG CÁO",
+  "tu-van-chien-luoc-marketing": "TƯ VẤN",
+  "dao-tao-digital-marketing": "TƯ VẤN",
+  "xay-kenh-tiktok": "QUẢNG CÁO",
+  "content-marketing": "SEO",
+  "video-marketing": "QUẢNG CÁO",
+  "marketing-influencer": "QUẢNG CÁO",
+  "email-sms-marketing": "QUẢNG CÁO",
+  "ban-hang-shopee": "SÀN THƯƠNG MẠI ĐIỆN TỬ",
+  "ban-hang-tiktok": "SÀN THƯƠNG MẠI ĐIỆN TỬ",
+  "dich-vu-livestream": "QUẢNG CÁO",
+  "quay-chup-san-pham-san": "SÀN THƯƠNG MẠI ĐIỆN TỬ",
+  "app-install": "QUẢNG CÁO",
+  "zalo-oa": "QUẢNG CÁO",
+};
+
+// Hàm sinh thành tựu mẫu
+function getProjectAchievement(type) {
+  switch(type) {
+    case "SEO": return "Tăng trưởng traffic 300%, Top 1 Google nhiều từ khóa";
+    case "QUẢNG CÁO": return "Doanh số tăng gấp 2, tiếp cận hàng triệu khách hàng";
+    case "SÀN THƯƠNG MẠI ĐIỆN TỬ": return "Tăng trưởng đơn hàng 250%, mở rộng thị trường toàn quốc";
+    case "TƯ VẤN": return "Chiến lược thành công, tăng trưởng bền vững cho doanh nghiệp";
+    default: return "Thành tựu nổi bật, khách hàng hài lòng";
+  }
+}
+
+// Hàm lấy 3 dự án liên quan (ưu tiên cùng nhóm, nếu thiếu thì random từ các dự án khác)
+function getRelatedProjects(slug) {
+  const type = SERVICE_TYPE_MAP[slug];
+  const related = ALL_PROJECTS.filter(p => p.type === type);
+  if (related.length >= 3) return related.slice(0, 3);
+  // Nếu chưa đủ 3, lấy thêm random từ các dự án khác (không trùng)
+  const others = ALL_PROJECTS.filter(p => p.type !== type);
+  while (related.length < 3 && others.length > 0) {
+    const idx = Math.floor(Math.random() * others.length);
+    related.push(others[idx]);
+    others.splice(idx, 1);
+  }
+  return related.slice(0, 3);
+}
+
 export default function ServiceDetailPage() {
   const { slug } = useParams();
-  const [showForm, setShowForm] = useState(false);
+  const [activeTab, setActiveTab] = useState('overview');
   const data = SERVICE_DETAIL[slug] || {
     title: "Dịch vụ đang cập nhật",
     subtitle: "Thông tin dịch vụ sẽ được cập nhật sớm",
@@ -513,186 +589,179 @@ export default function ServiceDetailPage() {
     why: [],
     process: []
   };
+  const color = COLOR_MAP[slug] || COLOR_MAP["default"];
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Section đầu trang: Tiêu đề dịch vụ nổi bật, không banner */}
-      <section className="py-16 px-4 bg-gradient-to-b from-blue-50 to-white">
-        <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-blue-700 mb-4 drop-shadow-sm tracking-tight">
-            {data.title}
-          </h1>
-          <p className="text-lg md:text-2xl text-gray-700 font-medium mb-2">
-            {data.subtitle}
+      {/* Hero Banner */}
+      <section className={`relative h-[60vh] bg-gradient-to-r ${color.from} ${color.to}`}>
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="relative z-10 container mx-auto px-4 h-full flex items-center">
+          <div className="max-w-4xl">
+            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+              {data.title}
+            </h1>
+            <p className="text-xl text-white/90 mb-8 max-w-2xl">
+              {data.subtitle}
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4">
+                <p className="text-white text-sm font-medium">LĨNH VỰC</p>
+                <p className="text-white font-semibold">DỊCH VỤ</p>
+              </div>
+              <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4">
+                <p className="text-white text-sm font-medium">GIẢI PHÁP</p>
+                <p className="text-white font-semibold">{data.title}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Navigation Tabs */}
+      <section className="border-b border-gray-200">
+        <div className="container mx-auto px-4">
+          <div className="flex space-x-4 overflow-x-auto scrollbar-thin scrollbar-thumb-blue-200 scrollbar-track-transparent">
+            <button
+              onClick={() => setActiveTab('overview')}
+              className={`py-4 px-4 min-w-max border-b-2 font-medium text-sm whitespace-nowrap transition-colors duration-200 ${
+                activeTab === 'overview'
+                  ? 'border-blue-600 text-blue-600 bg-blue-50' : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Tổng quan
+            </button>
+            <button
+              onClick={() => setActiveTab('challenge')}
+              className={`py-4 px-4 min-w-max border-b-2 font-medium text-sm whitespace-nowrap transition-colors duration-200 ${
+                activeTab === 'challenge'
+                  ? 'border-blue-600 text-blue-600 bg-blue-50' : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Thách thức
+            </button>
+            <button
+              onClick={() => setActiveTab('solution')}
+              className={`py-4 px-4 min-w-max border-b-2 font-medium text-sm whitespace-nowrap transition-colors duration-200 ${
+                activeTab === 'solution'
+                  ? 'border-blue-600 text-blue-600 bg-blue-50' : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Giải pháp
+            </button>
+            <button
+              onClick={() => setActiveTab('results')}
+              className={`py-4 px-4 min-w-max border-b-2 font-medium text-sm whitespace-nowrap transition-colors duration-200 ${
+                activeTab === 'results'
+                  ? 'border-blue-600 text-blue-600 bg-blue-50' : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Kết quả
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Content Sections */}
+      <div className="container mx-auto px-4 py-16">
+        {activeTab === 'overview' && (
+          <div className="max-w-4xl">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">VỀ DỊCH VỤ {data.title.toUpperCase()}</h2>
+            <div className="prose prose-lg max-w-none">
+              <p className="text-gray-600 mb-6">{data.what}</p>
+            </div>
+            <div className="flex justify-center mt-8">
+              <Image src={data.serviceImage} alt={data.title} width={480} height={320} className="rounded-2xl shadow-xl border border-blue-100" />
+            </div>
+            {/* Dự án tiêu biểu liên quan */}
+            <div className="mt-16">
+              <h3 className="text-2xl font-bold text-blue-700 mb-6 text-center">DỰ ÁN TIÊU BIỂU LIÊN QUAN</h3>
+              <div className="grid md:grid-cols-3 gap-8">
+                {getRelatedProjects(slug).map((project, idx) => (
+                  <div key={project.slug} className="rounded-2xl shadow-lg bg-white overflow-hidden group hover:shadow-2xl transition-all border border-blue-100 flex flex-col">
+                    <div className="relative h-48 w-full overflow-hidden">
+                      <Image src={project.image} alt={project.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                    </div>
+                    <div className="p-5 flex-1 flex flex-col justify-between">
+                      <div>
+                        <h4 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-blue-700 transition">{project.name}</h4>
+                        <p className="text-sm text-gray-600 mb-4">{getProjectAchievement(project.type)}</p>
+                      </div>
+                      <Link href={`/projects/${project.slug}`} className="inline-block mt-auto px-5 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full font-semibold text-sm shadow hover:from-blue-700 hover:to-indigo-700 transition-all">Xem chi tiết</Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+        {activeTab === 'challenge' && (
+          <div className="max-w-4xl">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">THÁCH THỨC</h2>
+            <div className="space-y-6">
+              {data.benefits && data.benefits.map((b, idx) => (
+                <div key={idx} className="bg-red-50 border-l-4 border-red-400 p-6">
+                  <h3 className="text-xl font-semibold text-red-800 mb-2">{idx + 1}. {b.title}</h3>
+                  <p className="text-red-700">{b.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+        {activeTab === 'solution' && (
+          <div className="max-w-4xl">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">GIẢI PHÁP TỪ CHÚNG TÔI</h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              {data.why && data.why.map((w, idx) => (
+                <div key={idx} className="bg-green-50 p-6 rounded-lg">
+                  <h3 className="text-xl font-semibold text-green-800 mb-3">{w.title}</h3>
+                  <p className="text-green-700">{w.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+        {activeTab === 'results' && (
+          <div className="max-w-4xl">
+            <h2 className="text-3xl font-bold text-gray-900 mb-8">KẾT QUẢ ĐẠT ĐƯỢC</h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              {data.process && data.process.map((p, idx) => (
+                <div key={idx} className="text-center p-8 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-lg text-white">
+                  <div className="text-4xl font-bold mb-2">{p.step}</div>
+                  <div className="text-lg">{p.title}</div>
+                  <p className="text-sm mt-2 opacity-90">{p.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* CTA Section */}
+      <section className="bg-gray-50 py-16">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            SẴN SÀNG SỞ HỮU DỊCH VỤ {data.title.toUpperCase()}?
+          </h2>
+          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            Hãy để chúng tôi giúp bạn phát triển thương hiệu và tăng trưởng doanh nghiệp vượt trội
           </p>
-          <div className="w-20 h-1 bg-blue-600 rounded-full mx-auto my-6" />
-        </div>
-      </section>
-
-      {/* Service Introduction */}
-      <section className="py-10 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Dịch vụ này là gì?</h2>
-              <p className="text-lg text-gray-700 leading-relaxed">{data.what}</p>
-            </div>
-            <div className="relative flex justify-center">
-              <Image 
-                src={data.serviceImage} 
-                alt={data.title}
-                width={480}
-                height={320}
-                className="rounded-2xl shadow-xl border border-blue-100"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits Section */}
-      <section className="py-14 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold text-blue-700 mb-2">Lợi ích khi sử dụng dịch vụ</h2>
-            <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto">Những giá trị thiết thực mà dịch vụ của chúng tôi mang lại cho doanh nghiệp của bạn</p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {data.benefits.map((benefit, index) => (
-              <div key={index} className="bg-white rounded-2xl p-6 shadow-md border-t-4 border-blue-600 hover:shadow-xl transition-shadow">
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-                  <span className="text-blue-600 font-bold text-xl">{index + 1}</span>
-                </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">{benefit.title}</h3>
-                <p className="text-gray-600 text-sm">{benefit.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Us Section */}
-      <section className="py-14">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold text-blue-700 mb-2">Tại sao nên chọn D9 Media Agency?</h2>
-            <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto">Những lý do khiến chúng tôi trở thành đối tác tin cậy của hàng trăm doanh nghiệp</p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-8">
-            {data.why.map((reason, index) => (
-              <div key={index} className="flex gap-4 items-start bg-blue-50 rounded-xl p-5 border-l-4 border-blue-600">
-                <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <span className="text-white font-bold text-lg">{index + 1}</span>
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-blue-800 mb-1">{reason.title}</h3>
-                  <p className="text-gray-700 text-sm">{reason.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Process Section */}
-      <section className="py-14 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold text-blue-700 mb-2">Quy trình triển khai</h2>
-            <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto">Quy trình làm việc chuyên nghiệp, minh bạch và hiệu quả</p>
-          </div>
-          <div className="grid md:grid-cols-5 gap-6">
-            {data.process.map((step, index) => (
-              <div key={index} className="text-center">
-                <div className="w-14 h-14 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <span className="text-white font-bold text-lg">{step.step}</span>
-                </div>
-                <h3 className="text-base font-bold text-blue-800 mb-1">{step.title}</h3>
-                <p className="text-gray-600 text-xs">{step.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Form Section */}
-      <section className="py-14 bg-gradient-to-br from-[#e0e7ff] via-[#a5b4fc] to-[#6366f1] relative overflow-hidden">
-        <div className="absolute inset-0 bg-white/60 pointer-events-none" />
-        <div className="relative max-w-4xl mx-auto px-4 text-center z-10">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Sẵn sàng bắt đầu dự án?</h2>
-          <p className="text-base md:text-lg text-gray-700 mb-6">Hãy liên hệ ngay để được tư vấn miễn phí và nhận thông tin chi tiết</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <a 
-              href="https://facebook.com/d9mediaagency" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="bg-white text-blue-600 px-8 py-4 rounded-lg font-bold text-base hover:bg-gray-100 transition-colors"
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link 
+              href="/contact"
+              className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
             >
-              Liên hệ Facebook
-            </a>
-            <a 
-              href="https://zalo.me/0123456789" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="bg-green-500 text-white px-8 py-4 rounded-lg font-bold text-base hover:bg-green-600 transition-colors"
+              Liên hệ tư vấn
+            </Link>
+            <Link 
+              href="/services"
+              className="border border-blue-600 text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors"
             >
-              Liên hệ Zalo
-            </a>
-            <button 
-              onClick={() => setShowForm(true)}
-              className="bg-transparent border-2 border-indigo-600 text-indigo-700 font-bold px-8 py-4 rounded-lg text-base hover:bg-indigo-50 hover:text-indigo-800 transition-colors"
-            >
-              Để lại thông tin
-            </button>
+              Xem thêm dịch vụ
+            </Link>
           </div>
         </div>
       </section>
-
-      {/* Contact Form Modal */}
-      {showForm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl p-8 max-w-md w-full relative shadow-2xl">
-            <button 
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl" 
-              onClick={() => setShowForm(false)}
-            >
-              &times;
-            </button>
-            <h2 className="text-2xl font-bold mb-4 text-blue-700">Để lại thông tin liên hệ</h2>
-            <p className="mb-6 text-gray-600">Dịch vụ quan tâm: <span className="font-semibold text-gray-900">{data.title}</span></p>
-            <form className="space-y-4">
-              <input 
-                type="text" 
-                placeholder="Họ và tên *" 
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300 focus:border-transparent" 
-                required
-              />
-              <input 
-                type="tel" 
-                placeholder="Số điện thoại *" 
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300 focus:border-transparent" 
-                required
-              />
-              <input 
-                type="email" 
-                placeholder="Email" 
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300 focus:border-transparent" 
-              />
-              <textarea 
-                placeholder="Nội dung cần tư vấn" 
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-300 focus:border-transparent" 
-                rows={4}
-              ></textarea>
-              <button 
-                type="submit" 
-                className="w-full bg-blue-600 text-white py-3 rounded-lg font-bold text-lg hover:bg-blue-700 transition-colors"
-              >
-                Gửi thông tin
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
