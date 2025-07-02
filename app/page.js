@@ -37,17 +37,17 @@ const Home = async () => {
       {/* Features */}
       <HomeFeatures feature={feature} />
 
+      {/* Featured Projects */}
+      <FeaturedProjects featured_projects={featured_projects} />
+
+      {/* News */}
+      <HomeNews />
+
       {/* Profile Section */}
       <ProfileSection profile_section={profile_section} />
 
       {/* Cta */}
       <Cta cta={call_to_action} />
-
-      {/* News */}
-      <HomeNews />
-
-      {/* Featured Projects */}
-      <FeaturedProjects featured_projects={featured_projects} />
     </>
   );
 };
