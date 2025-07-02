@@ -1,0 +1,102 @@
+/* SERVICES DROPDOWN – căn giữa, 3 cột, hover desktop */
+.services-dropdown-trigger {
+  position: relative;
+  cursor: pointer;
+}
+
+.services-dropdown {
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%) translateY(-10px);
+  transition: all 0.3s ease;
+
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  background: var(--dropdown-bg, #fff);
+  box-shadow: var(--services-dropdown-shadow, 0 20px 40px rgba(0, 0, 0, 0.15));
+  border-radius: var(--services-dropdown-border-radius, 12px);
+  padding: var(--services-dropdown-padding, 24px);
+  z-index: 1000;
+}
+
+/* Desktop: hover để show */
+@media (min-width: 768px) {
+  .services-dropdown-trigger:hover > .services-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Mobile: click để show (class .open) */
+@media (max-width: 767px) {
+  .services-dropdown {
+    display: none;
+    position: static;
+    box-shadow: none;
+    margin-top: 0;
+    padding: 16px;
+    transform: none;
+  }
+  .services-dropdown.open {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+}
+
+/* GRID 3 CỘT */
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* mobile 1 cột */
+  gap: 24px;
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Ngăn wrap chữ & tiêu đề */
+.services-group-title,
+.service-link {
+  white-space: nowrap;
+}
+
+/* các style con giữ nguyên… */
+.services-group-title {
+  margin-bottom: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: var(--dropdown-text-color, #374151);
+}
+.services-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.service-item {
+  margin-bottom: 8px;
+}
+.service-link {
+  display: block;
+  padding: 4px 0;
+  color: var(--dropdown-text-color, #374151);
+  text-decoration: none;
+  font-size: var(--dropdown-font-size, 14px);
+  transition: var(--dropdown-transition, all 0.3s ease);
+}
+.service-link:hover {
+  color: var(--dropdown-hover-color, #2563eb);
+  transform: translateX(5px);
+}
+
+/* biến tuỳ chỉnh */
+:root {
+  --dropdown-bg: #ffffff;
+  --dropdown-transition: all 0.3s ease;
+  --services-dropdown-padding: 24px;
+  /* …các biến khác như trước */
+}

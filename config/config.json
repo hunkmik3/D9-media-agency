@@ -1,0 +1,30 @@
+{
+  "site": {
+    "title": "D9 Media Agency",
+    "base_url": "/",
+    "favicon": "/images/favicon.png",
+    "logo": "/images/logo.png",
+    "logo_width": "250",
+    "logo_height": "80",
+    "logo_text": "D9 Media"
+  },
+
+  "settings": {
+    "pagination": 6,
+    "summary_length": 200,
+    "blog_folder": "blogs"
+  },
+
+  "params": {
+    "contact_form_action": "",
+    "tag_manager_id": "",
+    "footer_content": "Empowering businesses with innovative digital solutions. We transform ideas into powerful digital experiences that drive growth and success.",
+    "copyright": "© 2024 D9 Media Agency. All rights reserved."
+  },
+
+  "metadata": {
+    "meta_author": "D9 Media Agency",
+    "meta_image": "/images/logo.png",
+    "meta_description": "Professional digital agency specializing in web development, design, and digital marketing solutions"
+  }
+}

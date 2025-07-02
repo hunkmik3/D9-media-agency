@@ -1,0 +1,66 @@
+{
+  "main": [
+    {
+      "name": "Về Chúng Tôi",
+      "url": "/"
+    },
+    {
+      "name": "Dịch Vụ",
+      "url": "/services",
+      "hasDropdown": true
+    },
+    {
+      "name": "Portfolio",
+      "url": "/portfolio"
+    },
+    {
+      "name": "Blog",
+      "url": "/blogs"
+    },
+    {
+      "name": "Tư vấn chiến lược",
+      "url": "/pricing"
+    },
+    {
+      "name": "Liên Hệ",
+      "url": "/contact"
+    }
+  ],
+  "footer": [
+    {
+      "name": "Company",
+      "menu": [
+        { "text": "Về Chúng Tôi", "url": "/" },
+        { "text": "Portfolio", "url": "/portfolio" },
+        { "text": "Blog", "url": "/blogs" }
+      ]
+    },
+    {
+      "name": "Dịch Vụ",
+      "menu": [
+        { "text": "Performance Branding", "url": "/services/performance-branding" },
+        { "text": "E-Commerce", "url": "/services/e-commerce" },
+        { "text": "Performance Marketing", "url": "/services/performance-marketing" }
+      ]
+    },
+    {
+      "name": "Hỗ Trợ",
+      "menu": [
+        { "text": "FAQ", "url": "/faq" },
+        { "text": "Liên Hệ", "url": "/contact" },
+        { "text": "Chính Sách Bảo Mật", "url": "/privacy" },
+        { "text": "Điều Khoản", "url": "/terms" }
+      ]
+    },
+    {
+      "name": "Kết Nối",
+      "menu": [
+        { "text": "Facebook", "url": "https://facebook.com/" },
+        { "text": "Twitter", "url": "https://twitter.com/" },
+        { "text": "LinkedIn", "url": "https://linkedin.com/" },
+        { "text": "Skype", "url": "https://skype.com/" }
+      ]
+    }
+  ]
+}
+

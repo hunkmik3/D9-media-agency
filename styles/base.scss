@@ -1,0 +1,60 @@
+html, body, h1, h2, h3, h4, h5, h6, p, div, span, a, li, ul, ol, button, input, textarea {
+  @apply font-primary;
+}
+
+html {
+  @apply text-base;
+  overflow-x: hidden;
+}
+
+body {
+  @apply bg-body font-normal leading-relaxed text-text;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-bold leading-tight text-dark;
+}
+
+h1,
+.h1 {
+  @apply text-h1-sm md:text-h1 font-bold text-dark leading-tight;
+}
+
+h2,
+.h2 {
+  @apply text-h2-sm md:text-h2 font-semibold text-dark leading-tight;
+}
+
+h3,
+.h3 {
+  @apply text-h3-sm md:text-h3 font-semibold text-dark leading-tight;
+}
+
+h4,
+.h4 {
+  @apply text-h4 font-medium text-dark leading-tight;
+}
+
+h5,
+.h5 {
+  @apply text-h5 font-medium text-dark leading-tight;
+}
+
+h6,
+.h6 {
+  @apply text-h6 font-medium text-dark leading-tight;
+}
+
+p, div, span, a, li, ul, ol, button, input, textarea {
+  @apply text-dark;
+}
+
+code {
+  @apply before:hidden after:hidden;
+}
